@@ -6,7 +6,7 @@
  *  1) 콘솔 에러 / 페이지 에러 0건
  *  2) 화면 텍스트에 "null", "undefined", "[object", "NaN" 미노출
  *  3) 모바일(375px)·데스크톱(1280px)에서 가로 스크롤 없음
- *  4) 모든 img 에 alt 존재
+ *  4) 모든 img 에 alt 존재, 깨진 이미지 없음
  *  5) 시나리오 A: 실제 content/site.js / 시나리오 B: 모든 항목을 채운 fixture (일부 null 섞음)
  */
 const http = require("http");
@@ -17,7 +17,7 @@ const { chromium } = require("playwright");
 const ROOT = path.resolve(__dirname, "..");
 const FIXTURE = path.join(__dirname, "fixture-site.js");
 const PAGES = ["index", "about", "business", "products", "references", "contact", "privacy"];
-const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".txt": "text/plain" };
+const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".txt": "text/plain", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg" };
 
 function serve(useFixture) {
   return http.createServer((req, res) => {
@@ -51,6 +51,7 @@ async function run(name, useFixture, browser) {
         text: document.body.innerText,
         overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
         noAlt: [...document.images].filter(i => !i.hasAttribute("alt")).length,
+        broken: [...document.images].filter(i => i.complete && i.naturalWidth === 0).map(i => i.getAttribute("src")),
         h1: document.querySelectorAll("h1").length,
         header: !!document.querySelector(".logo"),
         footer: !!document.querySelector(".footer-name")
@@ -60,6 +61,7 @@ async function run(name, useFixture, browser) {
       const bad = r.text.match(/\bnull\b|\bundefined\b|\[object|\bNaN\b/);
       if (bad) fails.push(`${tag}: 금지 문자열 노출 "${bad[0]}"`);
       if (r.overflow) fails.push(`${tag}: 가로 스크롤 발생`);
+      if (r.broken.length) fails.push(`${tag}: 깨진 이미지 ${r.broken.join(", ")}`);
       if (r.noAlt) fails.push(`${tag}: alt 없는 이미지 ${r.noAlt}개`);
       if (r.h1 !== 1) fails.push(`${tag}: h1 개수 ${r.h1}`);
       if (!r.header || !r.footer) fails.push(`${tag}: 헤더/푸터 누락`);

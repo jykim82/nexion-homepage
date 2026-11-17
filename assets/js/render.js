@@ -98,7 +98,7 @@
     });
     host.className = "site-header";
     append(host, el("div", { class: "container header-inner" }, [
-      el("a", { class: "logo", href: "index.html" }, S.company.name),
+      el("a", { class: "logo", href: "index.html" }, el("img", { src: "assets/img/logo.svg", alt: S.company.name, width: "141", height: "28" })),
       el("nav", { "aria-label": "주 메뉴" }, [toggle, ul])
     ]));
   }
@@ -109,8 +109,9 @@
     var c = S.company;
     host.className = "site-footer";
     append(host, el("div", { class: "container" }, [
-      el("p", { class: "footer-name" }, c.name),
+      el("p", { class: "footer-name" }, el("img", { src: "assets/img/logo-white.svg", alt: c.name, width: "121", height: "24" })),
       list([
+        row("상호", c.name),
         row("대표자", c.ceo),
         row("사업자등록번호", c.bizNo),
         row("주소", c.address),

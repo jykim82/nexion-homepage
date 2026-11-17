@@ -11,8 +11,10 @@
 - 목록 항목(사업분야·제품·실적 등)은 `title`이 비어 있으면 화면에 나오지 않습니다.
 - 이미지는 `assets/img/`에 넣고 `site.js`에 경로를 적습니다.
 
-## 디자인 색상 변경
-- `assets/css/style.css` 맨 위 `--color-accent` 값을 CI 색상으로 교체합니다.
+## 디자인 색상 / 로고
+- 색상: `assets/css/style.css` 맨 위 `:root`의 `--color-*` 값 (명함 기준).
+- 로고: `assets/img/logo.svg`(밝은 배경), `logo-white.svg`(어두운 배경), `symbol.svg`(파비콘).
+  원본 로고 파일을 받으면 같은 파일명으로 덮어쓰면 됩니다.
 
 ## 점검
 ```
