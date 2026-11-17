@@ -150,6 +150,7 @@
       ], "info-list");
       return [
         el("section", { class: "hero" }, el("div", { class: "container" }, [
+          isEmpty(h.eyebrow) ? null : el("p", { class: "hero-eyebrow" }, h.eyebrow),
           el("h1", null, isEmpty(h.slogan) ? c.name : h.slogan),
           isEmpty(h.summary) ? null : el("p", { class: "hero-summary" }, h.summary),
           el("div", { class: "hero-cta" }, [

@@ -9,7 +9,7 @@ window.SITE = {
     name: "(테스트)회사", nameEn: "TEST CO.", ceo: "테스트대표", bizNo: "000-00-00000",
     address: "테스트 주소", tel: "000-0000-0000", fax: null, email: "test@example.invalid"
   },
-  hero: { slogan: "테스트 슬로건", summary: null },
+  hero: { eyebrow: "TEST · EYEBROW", slogan: "테스트 슬로건", summary: null },
   about: {
     greeting: ["테스트 문단 1", "", null, "테스트 문단 2"],
     vision: null,
