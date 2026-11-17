@@ -135,17 +135,32 @@ homepage/
 
 ### 6.4 SEO / 공유
 - 페이지별 `<title>`, `meta description`, Open Graph 태그
-- `robots.txt` (작성 완료), `sitemap.xml` (대표 주소 www 여부 확정 후 작성 — 절대 URL 필요)
+- `robots.txt`, `sitemap.xml` 작성 완료 (기준 주소 `https://nexioninc.co.kr/`)
 - 네이버 서치어드바이저 / 구글 서치콘솔 등록 (도메인 확정 후)
 
 ### 6.5 배포
 - 도메인: **nexioninc.co.kr** (가비아 등록, 2026-11-17 확정)
-  - 대표 주소: `[입력 필요]` — `www.nexioninc.co.kr` / `nexioninc.co.kr` 중 택1, 나머지는 대표 주소로 리다이렉트
-- 호스팅: `[입력 필요]` (D2-1)
-  - 후보 A: 가비아 웹호스팅 — 도메인과 같은 곳에서 관리, FTP 업로드로 배포
-  - 후보 B: GitHub Pages / Netlify / Cloudflare Pages — 무료, Git 푸시로 배포, 가비아 DNS에서 레코드만 연결
-  - 후보 C: 기존 사내 서버
-- 연결 작업(호스팅 결정 후): 가비아 DNS 관리에서 A/CNAME 레코드 설정 → HTTPS 인증서 발급 확인
+  - 대표 주소: **`https://nexioninc.co.kr`** (www 없음, 2026-11-17 확정). `www.nexioninc.co.kr` 접속 시 대표 주소로 자동 이동
+- 호스팅: **GitHub Pages (무료)** (D2-1, 2026-11-17 확정 — 유료 웹호스팅 제외 요청)
+  - 전제: 저장소 `jykim82/project`가 공개(public) 상태. 비공개 전환 시 GitHub Pages 무료 사용 불가 → Cloudflare Pages로 이전
+  - 배포 방식: `.github/workflows/homepage-pages.yml` — `homepage` 브랜치 푸시 시 자동 점검 통과하면 `homepage/` 폴더만 배포 (`tests/`, `PLAN.md`, `README.md` 제외)
+- 1회 설정 절차
+  1. GitHub 저장소 Settings → Pages → Source: **GitHub Actions**
+  2. Settings → Environments → `github-pages` → Deployment branches 에 **`homepage`** 추가 (기본값은 기본 브랜치만 허용)
+  3. Actions 탭에서 `homepage-pages` 수동 실행(Run workflow) → 성공 확인
+  4. 가비아 DNS 관리 — 아래 레코드 추가 (기존 MX 등 메일 레코드는 건드리지 않음)
+
+     | 타입 | 호스트 | 값 |
+     |---|---|---|
+     | A | @ | 185.199.108.153 |
+     | A | @ | 185.199.109.153 |
+     | A | @ | 185.199.110.153 |
+     | A | @ | 185.199.111.153 |
+     | CNAME | www | jykim82.github.io. |
+
+     (@ 호스트에 기존 A 레코드가 있으면 삭제 후 추가)
+  5. Settings → Pages → Custom domain: `nexioninc.co.kr` 입력 → DNS 확인 후 **Enforce HTTPS** 체크
+  6. (권장) GitHub 계정 Settings → Pages → 도메인 소유 인증(TXT 레코드) — 타인이 도메인을 가로채 연결하는 것 방지
 - HTTPS 필수
 
 ---
@@ -157,7 +172,7 @@ homepage/
 |---|---|---|
 | D1 | 문의 폼 수신 방식 | (a) 메일 링크(mailto)만 제공 (b) 폼 서비스(Formspree 등) (c) 자체 백엔드 |
 | D2 | 도메인 | ✅ 확정: nexioninc.co.kr (가비아) |
-| D2-1 | 호스팅 | 가비아 웹호스팅 / GitHub Pages·Netlify·Cloudflare Pages / 사내 서버 |
+| D2-1 | 호스팅 | ✅ 확정: GitHub Pages (무료), 대표 주소 nexioninc.co.kr (www 없음) |
 | D3 | 2차 범위(뉴스·자료실·영문) 포함 여부 | 포함 / 제외 |
 | D4 | 지도 서비스 | 카카오 / 네이버 / 구글 |
 

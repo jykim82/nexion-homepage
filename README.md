@@ -25,5 +25,7 @@ node tests/check.js
 `tests/fixture-site.js`는 테스트용 가짜 데이터이며 운영에 쓰지 않습니다.
 
 ## 배포
-- 업로드 대상: `tests/`, `PLAN.md`, `README.md`를 **제외한** 전체 파일.
-- 호스팅 확정(계획서 D2-1) 후 절차 추가 예정.
+- `homepage` 브랜치에 푸시하면 GitHub Actions(`.github/workflows/homepage-pages.yml`)가
+  자동 점검 → 통과 시 GitHub Pages에 배포합니다. 점검 실패 시 배포되지 않습니다.
+- 배포 제외: `tests/`, `PLAN.md`, `README.md`
+- 최초 1회 설정(GitHub·가비아 DNS)은 PLAN.md 6.5 참조.
