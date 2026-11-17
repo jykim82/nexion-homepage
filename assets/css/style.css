@@ -1,0 +1,126 @@
+/* (주)넥시온 홈페이지 — 임시 디자인 (CI 색상 수령 전: 중립 회색 + 포인트 1색) */
+:root {
+  --color-accent: #1f5fbf;        /* CI 색상 수령 시 이 값만 교체 */
+  --color-accent-strong: #174a96;
+  --color-text: #1b1f24;
+  --color-muted: #5a636e;
+  --color-line: #e3e6ea;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f5f7f9;
+  --color-footer-bg: #1b1f24;
+  --color-footer-text: #c9ced4;
+  --radius: 10px;
+  --container: 1200px;
+  --gutter: 16px;
+  --header-h: 64px;
+  --font: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; font-family: var(--font); font-size: 16px; line-height: 1.7;
+  color: var(--color-text); background: var(--color-bg); word-break: keep-all; overflow-wrap: anywhere;
+}
+/* 내용이 짧은 페이지에서도 푸터를 화면 하단에 고정 */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--color-accent); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+h1, h2, h3 { line-height: 1.3; margin: 0 0 .6em; }
+p { margin: 0 0 1em; }
+
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+@media (min-width: 768px) { :root { --gutter: 24px; } }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--color-text); color: #fff; padding: 8px 12px; z-index: 100; }
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* 헤더 */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--color-line); }
+.header-inner { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; }
+.logo { font-weight: 800; font-size: 1.25rem; color: var(--color-text); text-decoration: none; }
+.gnb { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; }
+.gnb a { color: var(--color-text); text-decoration: none; font-weight: 600; padding: 8px 0; }
+.gnb a:hover, .gnb a[aria-current="page"] { color: var(--color-accent); }
+.nav-toggle { display: none; }
+
+@media (max-width: 767px) {
+  .nav-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; background: none; border: 0; cursor: pointer;
+  }
+  .nav-toggle .bar, .nav-toggle .bar::before, .nav-toggle .bar::after {
+    display: block; width: 22px; height: 2px; background: var(--color-text); position: relative; content: "";
+  }
+  .nav-toggle .bar::before { position: absolute; top: -7px; }
+  .nav-toggle .bar::after { position: absolute; top: 7px; }
+  .gnb {
+    display: none; position: absolute; left: 0; right: 0; top: var(--header-h);
+    flex-direction: column; gap: 0; background: #fff; border-bottom: 1px solid var(--color-line);
+  }
+  .gnb.open { display: flex; }
+  .gnb a { display: block; padding: 14px var(--gutter); }
+}
+
+/* 히어로 */
+.hero { background: linear-gradient(135deg, var(--color-bg-alt), #e8eef7); padding: 96px 0 88px; }
+.hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 800; }
+.hero-summary { font-size: 1.15rem; color: var(--color-muted); max-width: 640px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.btn {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px;
+  border: 1px solid var(--color-line); border-radius: var(--radius); background: #fff;
+  color: var(--color-text); text-decoration: none; font-weight: 600;
+}
+.btn-primary { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+.btn-primary:hover { background: var(--color-accent-strong); }
+
+/* 섹션 */
+.page-head { background: var(--color-bg-alt); padding: 56px 0 40px; border-bottom: 1px solid var(--color-line); }
+.page-head h1 { font-size: clamp(1.6rem, 4vw, 2.25rem); margin: 0; }
+.section { padding: 64px 0; }
+.section.alt { background: var(--color-bg-alt); }
+.section-title { font-size: 1.5rem; }
+.lead { font-size: 1.15rem; color: var(--color-muted); }
+.prose { max-width: 760px; }
+.sign { text-align: right; font-weight: 600; margin-top: 2em; }
+.meta { color: var(--color-muted); }
+.empty { color: var(--color-muted); padding: 24px 0; }
+
+.cards { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius); padding: 24px; }
+.card h3 { font-size: 1.15rem; }
+.card p { color: var(--color-muted); }
+.more { font-weight: 600; text-decoration: none; }
+
+.detail { padding: 8px 0 40px; border-bottom: 1px solid var(--color-line); margin-bottom: 40px; }
+.detail:last-child { border-bottom: 0; margin-bottom: 0; }
+.detail img { margin: 16px 0; border-radius: var(--radius); }
+.features { padding-left: 1.2em; }
+
+.info-list { list-style: none; padding: 0; margin: 0; }
+.info-list li { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--color-line); }
+.info-list .label { min-width: 96px; font-weight: 600; color: var(--color-muted); }
+
+.timeline { list-style: none; padding: 0; margin: 0; }
+.timeline li { display: flex; gap: 20px; padding: 10px 0; border-bottom: 1px solid var(--color-line); }
+.timeline .date { min-width: 88px; font-weight: 700; color: var(--color-accent); }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 560px; }
+th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--color-line); }
+th { background: var(--color-bg-alt); }
+
+/* 푸터 */
+.site-footer { background: var(--color-footer-bg); color: var(--color-footer-text); padding: 40px 0; font-size: .9rem; }
+.site-footer a { color: #fff; }
+.footer-name { font-weight: 700; color: #fff; font-size: 1rem; }
+.footer-info { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.footer-info .label { margin-right: 6px; opacity: .75; }
+.copyright { margin: 0; opacity: .75; }
