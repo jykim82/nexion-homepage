@@ -115,7 +115,7 @@
 
 ### 6.3 디렉터리 구조 (안)
 ```
-homepage/
+nexion-homepage/
 ├── PLAN.md                 # 본 계획서
 ├── index.html
 ├── about.html
@@ -142,13 +142,12 @@ homepage/
 - 도메인: **nexioninc.co.kr** (가비아 등록, 2026-11-17 확정)
   - 대표 주소: **`https://nexioninc.co.kr`** (www 없음, 2026-11-17 확정). `www.nexioninc.co.kr` 접속 시 대표 주소로 자동 이동
 - 호스팅: **GitHub Pages (무료)** (D2-1, 2026-11-17 확정 — 유료 웹호스팅 제외 요청)
-  - 전제: 저장소 `jykim82/project`가 공개(public) 상태. 비공개 전환 시 GitHub Pages 무료 사용 불가 → Cloudflare Pages로 이전
-  - 배포 방식: `.github/workflows/homepage-pages.yml` — `homepage` 브랜치 푸시 시 자동 점검 통과하면 `homepage/` 폴더만 배포 (`tests/`, `PLAN.md`, `README.md` 제외)
+  - 저장소: **`jykim82/nexion-homepage` (공개)** — 홈페이지 전용. 2026-11-18 `jykim82/project`(상수도 AI 서버, 비공개 전환 예정)에서 홈페이지 기록만 분리 이전
+  - 배포 방식: `.github/workflows/pages.yml` — `main` 브랜치 푸시 시 자동 점검 통과하면 배포 (`tests/`, 문서, 설정 파일 제외)
 - 1회 설정 절차
   1. GitHub 저장소 Settings → Pages → Source: **GitHub Actions**
-  2. Settings → Environments → `github-pages` → Deployment branches 에 **`homepage`** 추가 (기본값은 기본 브랜치만 허용)
-  3. Actions 탭에서 `homepage-pages` 수동 실행(Run workflow) → 성공 확인
-  4. 가비아 DNS 관리 — 아래 레코드 추가 (기존 MX 등 메일 레코드는 건드리지 않음)
+  2. Actions 탭에서 `pages` 수동 실행(Run workflow) → 성공 확인 (기본 브랜치 `main` 사용이므로 Environments 추가 설정 불필요)
+  3. 가비아 DNS 관리 — 아래 레코드 추가 (기존 MX 등 메일 레코드는 건드리지 않음)
 
      | 타입 | 호스트 | 값 |
      |---|---|---|
@@ -159,8 +158,8 @@ homepage/
      | CNAME | www | jykim82.github.io. |
 
      (@ 호스트에 기존 A 레코드가 있으면 삭제 후 추가)
-  5. Settings → Pages → Custom domain: `nexioninc.co.kr` 입력 → DNS 확인 후 **Enforce HTTPS** 체크
-  6. (권장) GitHub 계정 Settings → Pages → 도메인 소유 인증(TXT 레코드) — 타인이 도메인을 가로채 연결하는 것 방지
+  4. Settings → Pages → Custom domain: `nexioninc.co.kr` 입력 → DNS 확인 후 **Enforce HTTPS** 체크
+  5. (권장) GitHub 계정 Settings → Pages → 도메인 소유 인증(TXT 레코드) — 타인이 도메인을 가로채 연결하는 것 방지
 - HTTPS 필수
 
 ---

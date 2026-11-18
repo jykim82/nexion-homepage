@@ -18,14 +18,16 @@
 
 ## 점검
 ```
-node tests/check.js
+npm ci
+npx playwright install chromium   # 최초 1회
+npm test
 ```
 7개 페이지 × 모바일/데스크톱 × (실데이터, 테스트 데이터)에서
 콘솔 에러, "null"/"undefined" 노출, 가로 스크롤, 이미지 alt, 모바일 메뉴 동작을 확인합니다.
 `tests/fixture-site.js`는 테스트용 가짜 데이터이며 운영에 쓰지 않습니다.
 
 ## 배포
-- `homepage` 브랜치에 푸시하면 GitHub Actions(`.github/workflows/homepage-pages.yml`)가
-  자동 점검 → 통과 시 GitHub Pages에 배포합니다. 점검 실패 시 배포되지 않습니다.
-- 배포 제외: `tests/`, `PLAN.md`, `README.md`
+- `main` 브랜치에 푸시하면 GitHub Actions(`.github/workflows/pages.yml`)가
+  자동 점검 → 통과 시 GitHub Pages(https://nexioninc.co.kr)에 배포합니다. 점검 실패 시 배포되지 않습니다.
+- 배포 제외: `tests/`, `PLAN.md`, `README.md`, `package*.json`, `.github/`
 - 최초 1회 설정(GitHub·가비아 DNS)은 PLAN.md 6.5 참조.

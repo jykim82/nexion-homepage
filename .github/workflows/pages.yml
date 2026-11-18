@@ -1,0 +1,60 @@
+# (주)넥시온 홈페이지 → GitHub Pages 배포
+# - main 브랜치 푸시 시 자동 점검(tests/check.js) 통과하면 배포, 실패하면 배포하지 않음
+# - tests/, 문서, 설정 파일은 배포에서 제외
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  test:
+    # Playwright 1.58.x 지원 OS로 고정 (ubuntu-latest=26.04 미지원)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/check.js
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 배포 파일만 추리기
+        run: |
+          mkdir _site
+          rsync -a \
+            --exclude '.git/' --exclude '.github/' --exclude 'tests/' --exclude '_site/' \
+            --exclude 'PLAN.md' --exclude 'README.md' \
+            --exclude 'package.json' --exclude 'package-lock.json' --exclude '.gitignore' \
+            ./ _site/
+          touch _site/.nojekyll
+          ls -R _site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
