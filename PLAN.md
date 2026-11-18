@@ -142,7 +142,8 @@ nexion-homepage/
 - 도메인: **nexioninc.co.kr** (가비아 등록, 2026-11-17 확정)
   - 대표 주소: **`https://nexioninc.co.kr`** (www 없음, 2026-11-17 확정). `www.nexioninc.co.kr` 접속 시 대표 주소로 자동 이동
 - 호스팅: **GitHub Pages (무료)** (D2-1, 2026-11-17 확정 — 유료 웹호스팅 제외 요청)
-  - 저장소: **`jykim82/nexion-homepage` (공개)** — 홈페이지 전용. 2026-11-18 `jykim82/project`(상수도 AI 서버, 비공개 전환 예정)에서 홈페이지 기록만 분리 이전
+  - 저장소: **`jykim82/nexion-homepage` (공개)** — 홈페이지 전용. 2026-11-18 `jykim82/project`(상수도 AI 서버, 비공개 전환 완료)에서 홈페이지 기록만 분리 이전
+  - **운영 상태 (2026-11-18): https://nexioninc.co.kr 공개 — DNS 연결, HTTPS 인증서 발급, Enforce HTTPS 완료**
   - 배포 방식: `.github/workflows/pages.yml` — `main` 브랜치 푸시 시 자동 점검 통과하면 배포 (`tests/`, 문서, 설정 파일 제외)
 - 1회 설정 절차
   1. GitHub 저장소 Settings → Pages → Source: **GitHub Actions**
@@ -241,7 +242,7 @@ nexion-homepage/
 | 3. 디자인 적용 ✅ 2026-11-17 (1차) | 로고·색상 반영, 반응형·접근성 점검 | 디자인 적용 사이트 | R3 |
 | 4. 콘텐츠 입력 | `site.js`에 제공 자료 입력 | 콘텐츠 완료 사이트 | R1~R11 |
 | 5. 검수 | 브라우저/모바일 테스트, 링크·폼 점검, 문안 교정 | 검수 체크리스트 | 4 |
-| 6. 배포 | nexioninc.co.kr 연결, HTTPS, 검색엔진 등록 | 운영 사이트 | D2-1 |
+| 6. 배포 ✅ 2026-11-18 (검색엔진 등록 제외) | nexioninc.co.kr 연결, HTTPS, 검색엔진 등록 | 운영 사이트 | D2-1 |
 
 > 단계 2는 자료 없이 즉시 착수 가능. 단계 3·4는 자료 수령 시점에 따라 진행.
 
